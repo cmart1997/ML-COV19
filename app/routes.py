@@ -1,15 +1,11 @@
 
 import numpy as np
 import pandas as pd
-from flask import Flask
-from flask import render_template 
-from flask import make_response
-from scipy.stats import norm
+from flask import Flask, render_template, make_response
 import csv
 import matplotlib.pyplot as plt
 from datetime import datetime
 import io
-import base64
 from app import app
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
