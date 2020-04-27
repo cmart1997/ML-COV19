@@ -1,0 +1,23 @@
+{% extends "template.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<head>
+<center>
+    <h1>
+        Concentr8
+    </h1>
+</center>
+<center> <h2> {{ previous_sessions }} </h2> </center>
+</head>
+<hr>
+<div>
+<body>
+        <center>
+            <a href = "click" id = "main_button" class="button">START SESSION</a>
+        </center> 
+        <br/>
+        <br/>
+        <center> <p> Today is: {{ month }} {{day}} {{year}}</p> </center>
+</body>
+</div>
+{% endblock %}
