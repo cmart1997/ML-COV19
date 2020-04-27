@@ -12,7 +12,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 @app.route('/')
 def index():
-    return '''<center> <h1> <a href="/stats">COV-19 Deaths in the United States</a></h1> </center>'''
+    return render_template('index.html')
 
 @app.route('/stats')
 def print_stats(): 
