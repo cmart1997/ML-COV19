@@ -53,15 +53,32 @@ def display():
     df=pd.read_csv(the_url)
 
     total_deaths = []
+    the_date =[]
     row_iterator= df.iterrows()
+    last = reversed(df["deaths"])
 
     for index,row in row_iterator:
-        total_deaths.append(row["deaths"])
-        
+        the_date.append(row["date"])
+        total_deaths.append(row["deaths"]) 
+
     fig = Figure()
+    fig.suptitle('Total Deaths In USA (COV-19)', fontsize=27)
     axis = fig.add_subplot(1, 1, 1)
 
-    axis.plot(range(0,len(total_deaths)),total_deaths)
+    x = range(0,len(total_deaths))
+    y = total_deaths
+    # xp = np.linspace(0, 7, 100000)
+    # p3 = np.poly1d(np.polyfit(x, y, 3))
+
+    axis.scatter(x, y)   
+    # m, b = np.polyfit(x, y, 1)
+
+    # axis.plot(range(0,len(y)), p3(y), c='r')
+    # axis.plot(x, m*x + b)
+    axis.set_xlabel('nth day since the 100th death', fontsize=18)
+    axis.set_ylabel('total amount of deaths', fontsize=16)
+    # plt.xlim(xmin=20)
+    
     canvas = FigureCanvas(fig)
     output = io.BytesIO()
     canvas.print_png(output)
