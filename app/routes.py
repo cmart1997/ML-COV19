@@ -41,14 +41,54 @@ def print_stats():
         current = row["deaths"]
         current_counts = row["cases"]
 
-    return_string = '''<center> <h1> <a href="/plot.png">PLOT IMAGE OF DATA BELOW</a></h1> </center> '''
+    return_string = '''<center> <h1> <a href="/caseplot.png">PLOT IMAGE OF CASE DATA BELOW</a></h1> </center> <br>
+    <center> <h1> <a href="/deathplot.png">PLOT IMAGE OF DEATH DATA BELOW</a></h1> </center> 
+    '''
     for i in range(0,len(the_date)):
         return_string += '<center> <h1>On {}, {} new cases, {} new deaths</h1> </center> \n'.format(the_date[i], cases[i], differences[i])
 
     return return_string
 
-@app.route('/plot.png')
+@app.route('/caseplot.png')
 def display(): 
+    the_url = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv"
+    df=pd.read_csv(the_url)
+
+    total_cases = []
+    row_iterator= df.iterrows()
+    last = reversed(df["cases"])
+
+    for index,row in row_iterator:
+        total_cases.append(row["cases"] / 10) 
+
+    fig = Figure()
+    fig.suptitle('Total Cases In USA (COV-19)', fontsize=18)
+    axis = fig.add_subplot(1, 1, 1)
+
+    x = range(0,len(total_cases))
+    y = total_cases
+    # xp = np.linspace(0, 7, 100000)
+    # p3 = np.poly1d(np.polyfit(x, y, 3))
+
+    axis.scatter(x, y)   
+    # m, b = np.polyfit(x, y, 1)
+
+    # axis.plot(range(0,len(y)), p3(y), c='r')
+    # axis.plot(x, m*x + b)
+    axis.set_xlabel('nth day since the first reported case', fontsize=9)
+    axis.set_ylabel('total amount of cases (multiply by 10)', fontsize=9)
+    # plt.xlim(xmin=20)
+    
+    canvas = FigureCanvas(fig)
+    output = io.BytesIO()
+    canvas.print_png(output)
+    response = make_response(output.getvalue())
+    response.mimetype = 'image/png'
+    return response
+
+
+@app.route('/deathplot.png')
+def show(): 
     the_url = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv"
     df=pd.read_csv(the_url)
 
