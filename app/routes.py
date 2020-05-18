@@ -42,7 +42,7 @@ def print_stats():
         current_counts = row["cases"]
 
     return_string = '''<center> <h1> <a href="/caseplot.png">PLOT IMAGE OF CASE DATA BELOW</a></h1> </center> <br>
-    <center> <h1> <a href="/deathplot.png">PLOT IMAGE OF DEATH DATA BELOW</a></h1> </center> 
+    <center> <h1> <a href="/deathplot.png">PLOT IMAGE OF DEATH DATA BELOW</a></h1> </center>  <br> <br> 
     '''
     for i in range(0,len(the_date)):
         return_string += '<center> <h1>On {}, {} new cases, {} new deaths</h1> </center> \n'.format(the_date[i], cases[i], differences[i])
@@ -98,8 +98,9 @@ def show():
     last = reversed(df["deaths"])
 
     for index,row in row_iterator:
-        the_date.append(row["date"])
-        total_deaths.append(row["deaths"]) 
+        if row["deaths"] > 100:
+            the_date.append(row["date"])
+            total_deaths.append(row["deaths"]) 
 
     fig = Figure()
     fig.suptitle('Total Deaths In USA (COV-19)', fontsize=27)
