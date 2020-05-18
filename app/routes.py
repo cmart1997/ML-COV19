@@ -59,7 +59,8 @@ def display():
     last = reversed(df["cases"])
 
     for index,row in row_iterator:
-        total_cases.append(row["cases"] / 10) 
+        if row["cases"] > 20000:
+            total_cases.append(row["cases"] / 10) 
 
     fig = Figure()
     fig.suptitle('Total Cases In USA (COV-19)', fontsize=18)
@@ -75,7 +76,7 @@ def display():
 
     # axis.plot(range(0,len(y)), p3(y), c='r')
     # axis.plot(x, m*x + b)
-    axis.set_xlabel('nth day since the first reported case', fontsize=9)
+    axis.set_xlabel('nth day since 20,000 cases first reported', fontsize=9)
     axis.set_ylabel('total amount of cases (multiply by 10)', fontsize=9)
     # plt.xlim(xmin=20)
     
